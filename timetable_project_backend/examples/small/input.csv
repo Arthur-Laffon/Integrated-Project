@@ -1,0 +1,12 @@
+kind,id,department,professor,subject,available_slots,equipment,allowed_subjects,required_equipment,target_course,weight,from_course,to_course,min_gap,max_gap,same_day
+course,CS142L,CS,P01,CS142,,,,,,,,,,,
+course,CS142E,CS,P02,CS142,,,,computers,,,,,,,
+course,MA101,MA,P03,MA101,,,,,,,,,,,
+professor,P01,,,,0;1;2;4;5;8;9;10;12;13;16;17;18;20;21;24;25;28;29;32;33;36;37,,,,,,,,,,
+professor,P02,,,,1;2;3;5;6;9;10;11;13;14;17;18;19;21;22;25;26;29;30;33;34;37;38,,,,,,,,,,
+professor,P03,,,,0;2;4;6;8;10;12;14;16;18;20;22;24;26;28;30;32;34;36;38,,,,,,,,,,
+room,R101,,,,*,,*,,,,,,,,
+room,PC1,,,,*,computers,*,,,,,,,,
+room,PC2,,,,*,computers,*,,,,,,,,
+link,,,,,,,,,,,CS142L,CS142E,1,6,true
+reward,,MA,,,,,,,CS142L,5,,,,,

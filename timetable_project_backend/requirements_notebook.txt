@@ -1,0 +1,7 @@
+networkx>=3.0
+matplotlib
+numpy
+pandas
+scipy
+ipython
+jupyter
