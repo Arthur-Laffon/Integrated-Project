@@ -1,1 +1,0 @@
-/usr/bin/python ./code/main.py
