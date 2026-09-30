@@ -1,11 +1,10 @@
 # from api import *
-from Interface.interface import EDTApp
+from Interface.interface import EDTApp, save_load
 # from Solver.solver import *
 
 # from tkinter import *
 # from tkinter.ttk import *
 
-# some test commit
 
 def main():
     appedt = EDTApp()				# Create the main window        
