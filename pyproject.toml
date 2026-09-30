@@ -1,0 +1,7 @@
+[project]
+name = "timetbl-gen-ip"
+version = "0.1.0"
+description = "Timetable generation; integrated project ENSL 2026-2027"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
