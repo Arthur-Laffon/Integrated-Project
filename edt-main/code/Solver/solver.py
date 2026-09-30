@@ -1,6 +1,9 @@
-from api import *
+from api import School, TimeSlot, TimetableEntry, Timetable, dashed_line
 from pychoco import Model
 from itertools import product
+
+
+
 def solve(school:School, debug = False):
 
     model = Model("EDT")
@@ -12,18 +15,11 @@ def solve(school:School, debug = False):
     times_l = [TimeSlot(i, j, p) for i in range(5) for j,p in enumerate([1, 2, 2, 0])]
     
 
-
-    # nombre de classe
-    nb_clas = len(clas_l)
-    # nombre de salle
-    nb_room = len(room_l)
-    # nombre de matière
-    nb_subj = len(subj_l)
-    # nombre de prof
-    nb_teac = len(teac_l)
-    # nombre de crénaux horaire
-    nb_time = len(times_l)
-
+    nb_clas = len(clas_l)  # nombre de classes
+    nb_room = len(room_l)  # nombre de salles
+    nb_subj = len(subj_l)  # nombre de matières
+    nb_teac = len(teac_l)  # nombre de profs
+    nb_time = len(times_l)  # nombre de crénaux horaire
 
 
 # on définit une variable par élément de la timetable
@@ -98,7 +94,7 @@ def solve(school:School, debug = False):
         soft_x += new_constr_x
         return
     
-    # 1.Prendre les timeslot avec la meilleure priorité d'abord
+    # 1.Prendre les timeslots avec la meilleure priorité d'abord
     
     coeff_slot = [model.intvar(4-times_l[m].priority) for i in range(nb_clas)
                 for j in range(nb_room) for k in range(nb_subj) for l in range(nb_teac)
@@ -106,8 +102,8 @@ def solve(school:School, debug = False):
     
     add_to_constr(coeff_slot, 4, soft_constr, X)
 
-    # 2.Pour chaque matière, prendre ses timeslot privilégiés
-    # et c'est pas dans le même format que pour les profs :<<<<<<<
+    # 2.Pour chaque matière, prendre ses timeslots privilégiés
+    # et c'est pas dans le même format que pour les profs :
     prefered_slots_subj = [model.intvar(len([1 for i in range(nb_clas)
                                          for j in range(nb_room)
                                          for l in range(nb_teac)
@@ -127,6 +123,7 @@ def solve(school:School, debug = False):
                                          not tt[i][j][k][l][m+1])]))]
     add_to_constr(nothing_after_subj, 1, soft_constr, X)
     # pause midi ou fin de journée ou
+
     # 3.Pour chaque prof, ses temps préférés (on ajoute pour les prios 0, sachant que être de prio
     # 0 ou 1 est une contrainte forte)
     prefered_slots_teac = [model.intvar(len([1 for i in range(nb_clas)
@@ -136,6 +133,7 @@ def solve(school:School, debug = False):
                                          if tt[i][j][k][l][m] and
                                          (times_l[m], 0) in teac_l[l].slots])) for l in range(nb_teac)]
     add_to_constr(prefered_slots_teac, 2, soft_constr, X)
+
     # 4. Pour chaque classe, ne pas lui assigner 2 profs qui s'évitent
     col_to_avoid = [model.intvar(len([1 for i in range(nb_clas)
                                     for l1 in range(nb_teac)
@@ -153,20 +151,16 @@ def solve(school:School, debug = False):
     solv = solver.find_optimal_solution(Obj,True,time_limit = "5m")
 
     if debug :
-        print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-        )
-        print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-        )
+        print(dashed_line + '\n' + dashed_line)
+
     attrib_l = []
-    if solv != None:
+    if solv is not None:
         for i in range(nb_clas):
             if debug: print(f"Classe : {clas_l[i].name}")
             for u in range(5):
                 if debug: s = f"jour {u+1} : "
                 for v in range(int(nb_time / 5)):
-                    if debug: s += f"crénau {v+1} :"
+                    if debug: s += f"créneau {v+1} :"
                     for l in range(nb_teac):
                         for j in range(nb_room):
                             for k in range(nb_subj):
@@ -185,17 +179,10 @@ def solve(school:School, debug = False):
                         s += "\t\t\t"
                     if debug: s += "\t"
                 if debug: print(s)
-            if debug: print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-            )
+            if debug: print(dashed_line)
 
         return Timetable(attrib_l)
     else:
         print("No solution found")
     if debug: 
-        print(
-        "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-        )
-        print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-        )
+        print(dashed_line + '\n' + dashed_line)

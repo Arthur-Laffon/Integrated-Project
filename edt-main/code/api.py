@@ -2,6 +2,7 @@
 
 ndays = 5
 nhours = 4
+dashed_line = "-" * 100 
 
 
 class TimeSlot:

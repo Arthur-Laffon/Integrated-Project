@@ -1,5 +1,5 @@
-from api import *
-from constraints import *
+from api import School, TimeSlot, Timetable, TimetableEntry, dashed_line
+from constraints import get_hard_constraints, get_soft_constraints
 from pychoco import Model
 
 def solve(school:School, debug = False):
@@ -86,14 +86,10 @@ def solve(school:School, debug = False):
         solv = solver.find_optimal_solution(Objs[constraint_level], True, time_limit = "5m")
 
         if debug :
-            print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-            )
-            print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-            )
+            print(dashed_line)
+            print(dashed_line)
         attrib_l = []
-        if solv != None:
+        if solv is not None:
             cont = False
             if debug: print(f"Nombre de contraintes non satisfaites : {len([b for b in satisfied_sc[constraint_level] if b])}")
             for i in range(nb_classes):
@@ -120,18 +116,11 @@ def solve(school:School, debug = False):
                             s += "\t\t\t"
                         if debug: s += "\t"
                     if debug: print(s)
-                if debug: print(
-                    "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-                )
+                if debug: print(dashed_line)
 
             return Timetable(attrib_l)
         else:
             print(f"No solution found at level {constraint_level}")
             constraint_level += 1
         if debug:
-            print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-            )
-            print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-            )
+            print(dashed_line)
