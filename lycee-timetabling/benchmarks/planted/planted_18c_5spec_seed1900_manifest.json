@@ -1,0 +1,54 @@
+{
+  "case": "planted_18c_5spec_seed1900",
+  "status": "PLANTED_FEASIBLE",
+  "seed": 1900,
+  "cohorts": 18,
+  "specialties": 5,
+  "students": 540,
+  "lessons": 607,
+  "mandatory_requests": 900,
+  "professors": 139,
+  "teacher_max_load": 10,
+  "rooms": {
+    "general": 27,
+    "lab": 13,
+    "computer": 7,
+    "gym": 7
+  },
+  "teacher_availability_fraction": 0.9,
+  "effective_teacher_availability_fraction": 0.9,
+  "offered_specialties": [
+    "MATHS_SPE",
+    "PHYS_SPE",
+    "SES_SPE",
+    "HGGSP",
+    "SVT_SPE"
+  ],
+  "terminal_specialty_blocks": {
+    "MATHS_SPE": 0,
+    "PHYS_SPE": 1,
+    "SES_SPE": 2,
+    "HGGSP": 3,
+    "SVT_SPE": 3
+  },
+  "class_size": 30,
+  "group_capacity": 30,
+  "section_capacity": 30,
+  "chronology_rate": 0.0,
+  "validation": {
+    "valid": true,
+    "courses": 607,
+    "required_requests": 900,
+    "errors": []
+  },
+  "files": {
+    "input": "planted_18c_5spec_seed1900_input.csv",
+    "witness_timetable": "planted_18c_5spec_seed1900_witness_timetable.csv",
+    "witness_students": "planted_18c_5spec_seed1900_witness_students.csv"
+  },
+  "sha256": {
+    "input": "1cc1e789de01dc4530c47d1b84e39a50e812374aeaac288b3167e07fcbf0716e",
+    "witness_timetable": "258891b0b035a2d47a1c3617a3810ca55e16204d110cd62565d948d5b785d0f3",
+    "witness_students": "5978b4d4ede5205ec4b9af098348ee7681df3926f681df5188d94f2fcb821fff"
+  }
+}
